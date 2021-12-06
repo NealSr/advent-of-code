@@ -2,7 +2,7 @@ def create_boards(lines)
     boards = [[]]
     current_board = 0
     lines.drop(2).map do |line|
-      if line == ''
+      if line.to_s.strip.empty?
         current_board += 1
         boards[current_board] = []
         next
@@ -33,7 +33,7 @@ def play_bingo(inputs, boards)
       (0...boards.size).each do |board_index|
         boards[board_index].each do |row|
           row.each_with_index do |elem, i|
-            row[i] = true if elem == bingo_option
+            row[i] = true if elem.to_s == bingo_option.to_s
           end
         end
         next unless is_bingo(boards[board_index])
@@ -56,6 +56,5 @@ boards = create_boards(input)
 
 puts moves.length
 puts boards.length
-puts boards[25][0]
 
-puts play_bingo(moves, boards)[0]
+puts play_bingo(moves, boards)[-1][0]
