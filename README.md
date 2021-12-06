@@ -1,2 +1,2 @@
-# advent-of-code-2020
-Advent of Code Repo for 2020
+# advent-of-code
+Advent of Code Repo
