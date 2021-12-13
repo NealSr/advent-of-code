@@ -1,3 +1,5 @@
+require 'colorize'
+
 input = File.readlines(if ARGV[0] == "test" then "sample.txt" else "input.txt" end)
 verbose = ARGV[1] == "v"
 
@@ -11,6 +13,28 @@ for line in input do
 end
 grid << Array.new(12, -500)
 pp grid if verbose
+
+def pretty(grid)
+    pretty = []
+    for row in 1..10 do
+      pretty << []
+      for col in 1..10 do
+        num = grid[row][col]
+        if num >= 9 then
+          pretty[row - 1] << "X".colorize(:yellow)
+        elsif num > 5 && num < 9
+          pretty[row - 1] << "x".colorize(:light_yellow)
+        else
+          pretty[row - 1] << "o".colorize(:blue)
+        end
+      end
+    end
+    for row in pretty
+      puts row.join
+    end
+    sleep(0.1)
+    puts "\e[H\e[2J"
+  end
 
 def has_flashed(row, col, flashed)
   return flashed.include?([row,col])
@@ -60,6 +84,7 @@ def flash(row, col, grid, flashed)
 end
 
 100.times do
+  pretty grid
   flashed = []
   for row in 1..10 do
     for col in 1..10 do
@@ -85,11 +110,12 @@ end
 end
 
 
-pp grid
+pretty grid
 
 pp @flashes
 
 for step in 101..999 do
+    pretty grid
     flashed = []
     for row in 1..10 do
       for col in 1..10 do
@@ -116,7 +142,6 @@ for step in 101..999 do
       end
     end
     if done then
-      puts step
-      break
+     # puts step
     end
 end
