@@ -1,4 +1,5 @@
 require 'set'
+require 'colorize'
 
 input = File.read(if ARGV[0] == "test" then "sample.txt" else "input.txt" end).split("\n\n")
 
@@ -18,14 +19,14 @@ def print_grid(points)
   for row in 0..height2
     grid2[row] = []
     for col in 0..width2 do
-      grid2[row][col] = "."
+      grid2[row][col] = ".".colorize(:red)
     end
   end
   
   for point in points do
     col = point[0]
     row = point[1]
-    grid2[row][col] = "#"
+    grid2[row][col] = "#".colorize(:green)
   end
 
   for row in grid2
@@ -90,5 +91,6 @@ for fold in folds do
   end
   sleep(0.1)
   print_grid(points)
+  puts "\n\n\n\n\n\n\n"
 end
 
