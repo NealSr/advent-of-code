@@ -98,7 +98,7 @@ pp lookup2
     min = [min,quantity].min
   end
 
-  puts max, min, max-min
+  puts max, min, max-min/2
 end
 
 
