@@ -7,7 +7,7 @@ for row in input do
   grid << row.chomp.chars.map(&:to_i)
 end
 
-new_size = grid_size * 5
+new_size = grid_size * 10
 
 grid2 = Array.new(new_size) { Array.new(new_size)}
 

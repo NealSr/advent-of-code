@@ -1,7 +1,8 @@
 require 'rgl/adjacency'
 require 'rgl/dijkstra'
+require 'colorize'
 
-input = File.readlines(if ARGV[0] == "test" then "sample.txt" elsif ARGV[0] == "2" then "part2.txt" else "input.txt" end)
+input = File.readlines(ARGV[0])
 
 graph = RGL::DirectedAdjacencyGraph.new
 
@@ -16,7 +17,6 @@ height = grid_size - 1
 for row in input do
   grid << row.chomp.chars.map(&:to_i)
 end
-
 
 for row in 0..height do
   for col in 0..width do
@@ -52,8 +52,16 @@ def get_value(grid, point)
   return grid[row_col[0]][row_col[1]]
 end
 
+pp solution
+
 risk = 0
 for step in solution do
   risk += get_value(grid, step)
+  row_col = step.split(",").map(&:to_i)
+  grid[row_col[0]][row_col[1]] = "X".colorize(:green) unless step == "0,0"
 end
 puts risk - get_value(grid, "0,0")
+
+for row in grid
+  puts row.join
+end
